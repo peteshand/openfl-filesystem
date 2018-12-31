@@ -1,5 +1,5 @@
 {
-	"name": "openfl-filesystem",
+	"name": "openflFilesystem",
 	"url": "https://github.com/peteshand/openfl-filesystem",
 	"license": "MIT",
 	"tags": ["filesystem", "openfl", "air", "electron"],
