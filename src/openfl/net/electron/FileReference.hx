@@ -1,4 +1,4 @@
-package mantle.net;
+package openfl.net.electron;
 
 import js.node.Fs;
 import openfl.utils.ByteArray;
@@ -6,7 +6,7 @@ import openfl.net.URLRequest;
 
 class FileReference
 {
-	public var creationDate(get, null):Date;
+	public var creationDate (default, null):Date;
 	public var creator(get, null):String;
 	public var data(get, null):ByteArray;
 	public var extension(get, null):String;
@@ -19,12 +19,6 @@ class FileReference
 	public function new() 
 	{
 		
-	}
-
-	function get_creationDate():Date
-	{
-		throw "Need to implement";
-		return null;
 	}
 
 	function get_creator():String

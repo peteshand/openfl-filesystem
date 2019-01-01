@@ -21,6 +21,9 @@ class File extends FileReference
 	public static var separator(get, null):String;
 	//public static var systemCharset(get, null):String;
 	@:isVar public static var userDirectory(get, null):File;
+
+	// property missing from FileReference
+	//public var extension(get, null):String;
 	
 	static function get_userDirectory():File 
 	{
@@ -78,9 +81,22 @@ class File extends FileReference
 	{
 		this.path = path;
 		super();
-	}
+		
+		if (exists){
+			var birthtime = Fs.statSync(path).birthtime;
+			creationDate = new Date(birthtime.getFullYear(), birthtime.getMonth(), birthtime.getDate(), birthtime.getHours(), birthtime.getMinutes(), birthtime.getSeconds());
 
-	
+			// The issue with setting modificationDate here is that it won't update after the File object is created
+			var mtime = Fs.statSync(path).mtime;
+			modificationDate = new Date(mtime.getFullYear(), mtime.getMonth(), mtime.getDate(), mtime.getHours(), mtime.getMinutes(), mtime.getSeconds());
+
+			var stats = Fs.statSync(path);
+			this.size = Math.floor(stats.size);
+		}
+		
+
+		//name = Path.basename(path);
+	}
 
 	private function get_nativePath():String 
 	{
@@ -118,17 +134,11 @@ class File extends FileReference
 		return Fs.lstatSync(path).isDirectory();
 	}
 
-	override function get_creationDate():Date
-	{
-		var jsDate = Fs.statSync(path).birthtime;
-		return new Date(jsDate.getFullYear(), jsDate.getMonth(), jsDate.getDate(), jsDate.getHours(), jsDate.getMinutes(), jsDate.getSeconds());
-	}
-
-	override function get_modificationDate():Date
+	/*override function get_modificationDate():Date
 	{
 		var jsDate = Fs.statSync(path).mtime;
 		return new Date(jsDate.getFullYear(), jsDate.getMonth(), jsDate.getDate(), jsDate.getHours(), jsDate.getMinutes(), jsDate.getSeconds());
-	}
+	}*/
 
 	static function get_separator():String
 	{
@@ -139,6 +149,11 @@ class File extends FileReference
 	{
 		var stats = Fs.statSync(path);
 		return stats.size;
+	}
+
+	override function get_name():String
+	{
+		return Path.basename(path);
 	}
 
 
@@ -299,17 +314,18 @@ class File extends FileReference
 			return [];
 		}
 	}
-
+	/*
 	override function get_name():String
 	{
 		return Path.basename(nativePath);
-	}
+	}*/
 
 	override function get_extension():String
 	{
 		return Path.extname(nativePath);
 	}
- 	 	
+ 	
+
     public function getDirectoryListingAsync():Void
 	{
 		throw "getDirectoryListingAsync is yet to be implemented, please help add this feature";
@@ -354,7 +370,8 @@ class File extends FileReference
 	{
 		throw "openWithDefaultApplication is yet to be implemented, please help add this feature";
 	}
- 	 	
+ 	
+	// function missing from openfl FileReference
     override public function requestPermission():Void
 	{
 		throw "requestPermission is yet to be implemented, please help add this feature";

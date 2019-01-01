@@ -1,4 +1,4 @@
-package openfl.filesystem;
+package openfl.filesystem.electron;
 
 import openfl.utils.ByteArray;
 import openfl.filesystem.File;
