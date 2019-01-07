@@ -23,7 +23,7 @@ class File extends FileReference
 	@:isVar public static var userDirectory(get, null):File;
 
 	// property missing from FileReference
-	//public var extension(get, null):String;
+	public var extension(get, null):String;
 	
 	static function get_userDirectory():File 
 	{
@@ -145,13 +145,15 @@ class File extends FileReference
 		return Path.sep;
 	}
 
-	override function get_size():Float
+	//#if (lime <= "7.1.0") override #end
+	function get_size():Float
 	{
 		var stats = Fs.statSync(path);
 		return stats.size;
 	}
 
-	override function get_name():String
+	//#if (lime <= "7.1.0") override #end
+	function get_name():String
 	{
 		return Path.basename(path);
 	}
@@ -320,7 +322,8 @@ class File extends FileReference
 		return Path.basename(nativePath);
 	}*/
 
-	override function get_extension():String
+	//#if (lime <= "7.1.0") override #end
+	function get_extension():String
 	{
 		return Path.extname(nativePath);
 	}
@@ -372,7 +375,8 @@ class File extends FileReference
 	}
  	
 	// function missing from openfl FileReference
-    override public function requestPermission():Void
+	//#if (lime <= "7.1.0") override #end
+    public function requestPermission():Void
 	{
 		throw "requestPermission is yet to be implemented, please help add this feature";
 	}
