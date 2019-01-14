@@ -51,7 +51,7 @@ class FileStream extends EventDispatcher
 
 	public function readBytes(bytes:ByteArray, offset:UInt = 0, length:UInt = 0):Void
 	{
-		if (openFile == null) return null;
+		if (openFile == null) return;
 		var buffer:Buffer = Fs.readFileSync(openFile.nativePath, { flag:FsOpenFlag.ReadSync } );
 		var hxBytes = buffer.hxToBytes();
 		bytes.writeBytes(hxBytes, offset, length);
@@ -73,7 +73,7 @@ class FileStream extends EventDispatcher
 	{
 		if (openFile == null) {
 			trace(openFile == null);
-			return null;
+			return;
 		}
 		
 		writeStream.once('open', function(fd) {
