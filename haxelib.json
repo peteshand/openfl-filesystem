@@ -4,8 +4,8 @@
 	"license": "MIT",
 	"tags": ["filesystem", "openfl", "air", "electron"],
 	"description": "AIR filesystem API for non AIR targets",
-	"version": "1.0.2",
-	"releasenote": "haxe 4.x compatibility",
+	"version": "1.0.3",
+	"releasenote": "openfl compatibility updates",
 	"contributors": [ "p.j.shand" ],
 	"classPath": "src/"
 }
